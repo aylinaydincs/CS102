@@ -1,6 +1,6 @@
 package Cs102_Proect02;
 
-public class Product extends Restaurant {
+public abstract class Product extends Restaurant implements Expense {
     private String name;
     private double purchasePrice;
     private double sellingPrice;
