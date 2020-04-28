@@ -55,10 +55,6 @@ public class Restaurant {
         products.add(new MenuProduct("Kids Menu", Kidsproducts));
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
     public void listEmployees (){
         for (int i=0;i<employees.size();i++){
             System.out.println("Employee " + employees.get(i).getId() + ": " + employees.get(i).getName());
@@ -97,6 +93,7 @@ public class Restaurant {
         return (Waiter)employees.get(waiter) ;
 
     }
+
     public double calculateExpenses(){
         double expense = 0;
         for (int i =0; i<employees.size();i++){
@@ -127,6 +124,11 @@ public class Restaurant {
 
         return revenue;
     }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
 
 
 
