@@ -55,11 +55,7 @@ public class Restaurant {
         products.add(new MenuProduct("Kids Menu", Kidsproducts));
     }
 
-    public void listEmployees (){
-        for (int i=0;i<employees.size();i++){
-            employees.get(i).toString();
-        }
-    }
+
 
     public void addCook(String name, double salary) {
         Employee cook = new Cook(name, salary);
@@ -69,6 +65,12 @@ public class Restaurant {
     public void addWaiter(String name) {
         Employee waiter = new Waiter(name);
         employees.add(waiter);
+    }
+
+    public void listEmployees (){
+        for (int i=0;i<employees.size();i++){
+            System.out.println(employees.get(i).toString());
+        }
     }
 
     public Waiter assignWaiter() {
