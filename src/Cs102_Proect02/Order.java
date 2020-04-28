@@ -7,11 +7,9 @@ public class Order {
 
     public Order() {
 
-
     }
     public void addProduct(Product product){
         order.add(product);
-
     }
     public void listOrder(){
         for(int i=0;i<order.size();i++){

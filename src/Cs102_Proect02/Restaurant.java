@@ -87,8 +87,24 @@ public class Restaurant {
 
     }
     public double calculateExpenses(){
-
-
-
+        Order money =new Order();
+        double expense = 0;
+        for (int i =0; i<employees.size();i++){
+            expense+=employees.get(i).calculateExpense();
+        }
+        for (int i =0; i<employees.size();i++){
+            if(employees.get(i) instanceof Waiter){
+                for (int j=0; j< ((Waiter) employees.get(i)).getOrdersReceived().size();j++){
+                    expense+= money.calculateTotalPrice();
+                }
+            }
+        }
+        return expense;
     }
 }
+
+
+
+
+
+
