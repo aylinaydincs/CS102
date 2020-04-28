@@ -13,7 +13,7 @@ public class Order {
     }
     public void listOrder(){
         for(int i=0;i<order.size();i++){
-            order.get(i).toString();
+            System.out.println(order.get(i).toString());
         }
     }
     public ArrayList<Product> getOrderedProducts() {
