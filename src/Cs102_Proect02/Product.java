@@ -44,7 +44,7 @@ public abstract class Product implements Expense {
 
     @Override
     public String toString() {
-        return getName() + " : " +getSellingPrice();
+        return getName() + " : " + getSellingPrice();
     }
 }
 

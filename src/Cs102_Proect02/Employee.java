@@ -26,6 +26,6 @@ public abstract class Employee implements Expense {
 
     @Override
     public String toString() {
-        return "Employee{}";
+        return "Employee " + getId() + ": " + getName();
     }
 }
