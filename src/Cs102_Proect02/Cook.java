@@ -17,4 +17,9 @@ public class Cook extends Employee {
     public double getTaxRate() {
         return taxRate;
     }
+
+
+    public double calculateExpense() {
+        return this.getSalary()*(1+this.getTaxRate());
+    }
 }
