@@ -7,6 +7,7 @@ public class Cook extends Employee {
     public Cook(String name, double salary) {
         super(name);
         this.salary = salary;
+        this.taxRate = 0.18;
     }
 
     public double getSalary() {
