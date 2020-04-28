@@ -50,8 +50,16 @@ public class Restaurant {
         products.add(new MenuProduct("Kids Menu", Kidsproducts));
     }
 
-
-
-    // Implement the rest of the class
-
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+    public void addCook (String name, double salary){
+        Employee cook = new Cook(name,salary);
+        employees.add(cook);
+    }
+    public void addWaiter (String name){
+        Employee waiter = new Waiter(name);
+        employees.add(waiter);
+    }
+    
 }

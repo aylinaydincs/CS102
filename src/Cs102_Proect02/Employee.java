@@ -1,6 +1,6 @@
 package Cs102_Proect02;
 
-public abstract class Employee extends Restaurant implements Expense {
+public abstract class Employee implements Expense {
     private int id;
     private String name;
 
@@ -23,4 +23,6 @@ public abstract class Employee extends Restaurant implements Expense {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

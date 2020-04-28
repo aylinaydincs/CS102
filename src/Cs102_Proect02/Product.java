@@ -1,6 +1,6 @@
 package Cs102_Proect02;
 
-public abstract class Product extends Restaurant implements Expense {
+public abstract class Product implements Expense {
     private String name;
     private double purchasePrice;
     private double sellingPrice;
@@ -29,9 +29,6 @@ public abstract class Product extends Restaurant implements Expense {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
 
     public double getSellingPrice() {
         return sellingPrice;
@@ -45,8 +42,5 @@ public abstract class Product extends Restaurant implements Expense {
         return utilityCost;
     }
 
-    public void setUtilityCost(double utilityCost) {
-        this.utilityCost = utilityCost;
-    }
 }
 

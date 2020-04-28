@@ -8,4 +8,12 @@ public class Cook extends Employee {
         super(name);
         this.salary = salary;
     }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public double getTaxRate() {
+        return taxRate;
+    }
 }
