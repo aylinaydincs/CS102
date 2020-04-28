@@ -53,13 +53,37 @@ public class Restaurant {
     public ArrayList<Product> getProducts() {
         return products;
     }
-    public void addCook (String name, double salary){
-        Employee cook = new Cook(name,salary);
+
+    public void addCook(String name, double salary) {
+        Employee cook = new Cook(name, salary);
         employees.add(cook);
     }
-    public void addWaiter (String name){
+
+    public void addWaiter(String name) {
         Employee waiter = new Waiter(name);
         employees.add(waiter);
     }
-    
+
+    public String assignWaiter() {
+        String WaiterName = "Waiter ";
+        int count = 0;
+        for (int i=0;i<employees.size();i++){
+            if (employees.get(i) instanceof Waiter){
+                count++;
+            }
+        }
+        Random rand = new Random ();
+        int randomWaiter = rand.nextInt(count);
+        int n =0;
+        for (int i=0;i<employees.size();i++){
+            if (employees.get(i) instanceof Waiter){
+               n++;
+            }
+            if(randomWaiter == n){
+                WaiterName = WaiterName + employees.get(i).getName();
+            }
+        }
+        return WaiterName;
+
+    }
 }
