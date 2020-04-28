@@ -2,8 +2,8 @@ package Cs102_Proect02;
 
 public class Dessert extends Product {
 
-    public Dessert(String name, double purchasePrice, double sellingPrice, double utilityCost) {
-        super(name, purchasePrice, sellingPrice, utilityCost);
+    public Dessert(String name, double sellingPrice, double purchasePrice, double utilityCost) {
+        super(name, sellingPrice, purchasePrice, utilityCost);
     }
 
     public double calculateExpense() {
