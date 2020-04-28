@@ -42,7 +42,9 @@ public abstract class Product implements Expense {
         return utilityCost;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Product{}";
+    }
 }
 

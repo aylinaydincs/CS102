@@ -64,8 +64,8 @@ public class Restaurant {
         employees.add(waiter);
     }
 
-    public String assignWaiter() {
-        String WaiterName = "Waiter ";
+    public Waiter assignWaiter() {
+        int waiter =0;
         int count = 0;
         for (int i=0;i<employees.size();i++){
             if (employees.get(i) instanceof Waiter){
@@ -80,10 +80,14 @@ public class Restaurant {
                n++;
             }
             if(randomWaiter == n){
-                WaiterName = WaiterName + employees.get(i).getName();
+                waiter = i;
             }
         }
-        return WaiterName;
+        return (Waiter)employees.get(waiter) ;
+
+    }
+    public double calculateExpenses(){
+
 
     }
 }

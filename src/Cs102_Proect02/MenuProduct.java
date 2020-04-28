@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 
 public class MenuProduct extends Product {
-    private ArrayList<Product> products;
-    public MenuProduct(String name, ArrayList<Product> products) {
+    private ArrayList<Product> menus;
+    public MenuProduct(String name, ArrayList<Product> menus) {
         super(name);
-        this.products =products;
+        this.menus = menus;
 
     }
     public double calculateExpense(){
         int expense =0;
-        for (int i =0;i<products.size();i++){
-            double n = products.get(i).getPurchasePrice() + products.get(i).getUtilityCost();
+        for (int i =0;i<menus.size();i++){
+            double n = menus.get(i).getPurchasePrice() + menus.get(i).getUtilityCost();
             expense+=n;
         }
         return expense;
@@ -21,15 +21,15 @@ public class MenuProduct extends Product {
     }
     protected double calculateSellingPrice(){
         double price =0;
-        for (int i =0;i<products.size();i++){
-            if (products.get(i) instanceof MainDish){
-                price += products.get(i).getSellingPrice()*0.9;
+        for (int i =0;i<menus.size();i++){
+            if (menus.get(i) instanceof MainDish){
+                price += menus.get(i).getSellingPrice()*0.9;
             }
-            if (products.get(i) instanceof Dessert){
-                price += products.get(i).getSellingPrice()*0.8;
+            if (menus.get(i) instanceof Dessert){
+                price += menus.get(i).getSellingPrice()*0.8;
             }
-            if (products.get(i) instanceof Beverage){
-                price += products.get(i).getSellingPrice()*0.5;
+            if (menus.get(i) instanceof Beverage){
+                price += menus.get(i).getSellingPrice()*0.5;
             }
         }
         return price;

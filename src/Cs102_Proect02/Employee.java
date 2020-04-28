@@ -24,5 +24,8 @@ public abstract class Employee implements Expense {
         this.name = name;
     }
 
-
+    @Override
+    public String toString() {
+        return "Employee{}";
+    }
 }
