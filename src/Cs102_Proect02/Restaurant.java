@@ -54,6 +54,12 @@ public class Restaurant {
         return products;
     }
 
+    public void listEmployees (){
+        for (int i=0;i<employees.size();i++){
+
+        }
+    }
+    
     public void addCook(String name, double salary) {
         Employee cook = new Cook(name, salary);
         employees.add(cook);
@@ -116,6 +122,8 @@ public class Restaurant {
 
         return revenue;
     }
+
+
 
 }
 
