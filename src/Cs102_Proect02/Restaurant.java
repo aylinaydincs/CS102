@@ -21,9 +21,6 @@ public class Restaurant {
         addWaiter("Phobe");
         addWaiter("Rachel");
 
-        for (int i=0;i<employees.size();i++){
-            employees.get(i).setId(i+1);
-        }
 
     }
 
@@ -60,11 +57,17 @@ public class Restaurant {
     public void addCook(String name, double salary) {
         Employee cook = new Cook(name, salary);
         employees.add(cook);
+        for (int i=0;i<employees.size();i++){
+            employees.get(i).setId(i+1);
+        }
     }
 
     public void addWaiter(String name) {
         Employee waiter = new Waiter(name);
         employees.add(waiter);
+        for (int i=0;i<employees.size();i++){
+            employees.get(i).setId(i+1);
+        }
     }
 
     public void listEmployees (){
@@ -97,21 +100,25 @@ public class Restaurant {
     }
 
     public double calculateExpenses(){
-        double expense = 0;
+        double empexpense = 0;
+        double ordexpense = 0;
         for (int i =0; i<employees.size();i++){
-            expense+=employees.get(i).calculateExpense();
+            empexpense+=employees.get(i).calculateExpense();
         }
+        System.out.println("Employee expenses: " + empexpense);
+
         for (int i =0; i<employees.size();i++){
             if(employees.get(i) instanceof Waiter){
                 for (int j=0; j< ((Waiter) employees.get(i)).getOrdersReceived().size();j++){
                     for (int l =0;l<((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().size();l++){
-                        expense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getPurchasePrice();
-                        expense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getUtilityCost();
+                        ordexpense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getPurchasePrice();
+                        ordexpense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getUtilityCost();
                     }
                 }
             }
         }
-        return expense;
+        System.out.println("Order expenses: " + ordexpense);
+        return empexpense + ordexpense;
     }
 
     public double calculateRevenue(){
