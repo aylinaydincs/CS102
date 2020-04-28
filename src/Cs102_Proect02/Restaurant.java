@@ -87,7 +87,6 @@ public class Restaurant {
 
     }
     public double calculateExpenses(){
-        Order money =new Order();
         double expense = 0;
         for (int i =0; i<employees.size();i++){
             expense+=employees.get(i).calculateExpense();
@@ -95,12 +94,29 @@ public class Restaurant {
         for (int i =0; i<employees.size();i++){
             if(employees.get(i) instanceof Waiter){
                 for (int j=0; j< ((Waiter) employees.get(i)).getOrdersReceived().size();j++){
-                    expense+= money.calculateTotalPrice();
+                    for (int l =0;l<((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().size();l++){
+                        expense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getPurchasePrice();
+                        expense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getUtilityCost();
+                    }
                 }
             }
         }
         return expense;
     }
+
+    public double calculateRevenue(){
+        double revenue = 0;
+        for (int i =0; i<employees.size();i++){
+            if(employees.get(i) instanceof Waiter){
+                for (int j=0; j< ((Waiter) employees.get(i)).getOrdersReceived().size();j++){
+                    revenue+=((Waiter) employees.get(i)).getOrdersReceived().get(j).calculateTotalPrice();
+                }
+            }
+        }
+
+        return revenue;
+    }
+
 }
 
 
