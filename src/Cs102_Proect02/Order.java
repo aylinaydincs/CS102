@@ -12,6 +12,9 @@ public class Order {
         order.add(product);
     }
     public void listOrder(){
+        if(order.size() == 0){
+            System.out.println("You have not ordered anything yet!");
+        }
         for(int i=0;i<order.size();i++){
             System.out.println(order.get(i).toString());
         }

@@ -11,7 +11,6 @@ public class Waiter extends Employee {
         this.orderRate = 0.1;
     }
 
-
     public double calculateExpense() {
         double expense =0;
         for(int i=0;i<orders.size();i++){

@@ -52,8 +52,6 @@ public class Restaurant {
         products.add(new MenuProduct("Kids Menu", Kidsproducts));
     }
 
-
-
     public void addCook(String name, double salary) {
         Employee cook = new Cook(name, salary);
         employees.add(cook);

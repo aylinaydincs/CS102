@@ -8,7 +8,7 @@ public class MenuProduct extends Product {
     public MenuProduct(String name, ArrayList<Product> menus) {
         super(name);
         this.menus = menus;
-
+        setSellingPrice(calculateSellingPrice());
     }
     public double calculateExpense(){
         int expense =0;
