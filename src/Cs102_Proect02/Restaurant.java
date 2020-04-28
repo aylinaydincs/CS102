@@ -57,7 +57,7 @@ public class Restaurant {
 
     public void listEmployees (){
         for (int i=0;i<employees.size();i++){
-            System.out.println("Employee " + employees.get(i).getId() + ": " + employees.get(i).getName());
+            employees.get(i).toString();
         }
     }
 
