@@ -21,6 +21,10 @@ public class Restaurant {
         addWaiter("Phobe");
         addWaiter("Rachel");
 
+        for (int i=0;i<employees.size();i++){
+            employees.get(i).setId(i+1);
+        }
+
     }
 
     private void initProducts() {
