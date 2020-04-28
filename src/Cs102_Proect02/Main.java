@@ -143,6 +143,7 @@ public class Main {
                 String salary = scanner.nextLine();
                 restaurant.addCook(name, Double.parseDouble(salary));
             }
+
             else if(option.equals("2")){
                 System.out.println("Name of the Waiter:");
                 System.out.print(">> ");

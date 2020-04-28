@@ -82,7 +82,7 @@ public class Restaurant {
             }
         }
         Random rand = new Random ();
-        int randomWaiter = rand.nextInt(count);
+        int randomWaiter = rand.nextInt(count)+1;
         int n =0;
         for (int i=0;i<employees.size();i++){
             if (employees.get(i) instanceof Waiter){
