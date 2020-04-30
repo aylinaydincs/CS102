@@ -19,6 +19,21 @@ public class MenuProduct extends Product {
         return expense;
 
     }
-   
+    private double calculateSellingPrice(){
+        double price =0;
+        for (int i =0;i<menus.size();i++){
+            if (menus.get(i) instanceof MainDish){
+                price += menus.get(i).getSellingPrice()*0.9;
+            }
+            if (menus.get(i) instanceof Dessert){
+                price += menus.get(i).getSellingPrice()*0.8;
+            }
+            if (menus.get(i) instanceof Beverage){
+                price += menus.get(i).getSellingPrice()*0.5;
+            }
+        }
+        return price;
+    }
+
 }
 
