@@ -102,22 +102,19 @@ public class Restaurant {
         double ordexpense = 0;
         for (int i =0; i<employees.size();i++){
             empexpense+=employees.get(i).calculateExpense();
-        }
-        System.out.println("Employee expenses: " + empexpense);
-
-        for (int i =0; i<employees.size();i++){
             if(employees.get(i) instanceof Waiter){
                 for (int j=0; j< ((Waiter) employees.get(i)).getOrdersReceived().size();j++){
-                    for (int l =0;l<((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().size();l++){
-                        ordexpense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getPurchasePrice();
-                        ordexpense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(l).getUtilityCost();
+                    for (int k=0;k<((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().size();++k){
+                        ordexpense+=((Waiter) employees.get(i)).getOrdersReceived().get(j).getOrderedProducts().get(k).calculateExpense();
                     }
                 }
             }
         }
+        System.out.println("Employee expenses: " + empexpense);
         System.out.println("Order expenses: " + ordexpense);
         return empexpense + ordexpense;
     }
+
 
     public double calculateRevenue(){
         double revenue = 0;
@@ -135,9 +132,6 @@ public class Restaurant {
     public ArrayList<Product> getProducts() {
         return products;
     }
-
-
-
 
 }
 
