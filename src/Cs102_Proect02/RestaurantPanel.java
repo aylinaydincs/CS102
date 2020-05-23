@@ -93,6 +93,11 @@ public class RestaurantPanel extends JPanel {
         calculateExpensePanel.add(profitDisplay);
         add(calculateExpensePanel);
 
+        this.listPanel.setVisible(false);
+        this.cookPanel.setVisible(false);
+        this.waiterPanel.setVisible(false);
+        this.calculateExpensePanel.setVisible(false);
+
 
 
 
