@@ -29,6 +29,23 @@ public class RestaurantPanel extends JPanel {
         add(calculateExpenses);
 
 
+        this.listPanel = new JPanel(new GridLayout(1,3));
+        listPanel.setBounds(1, 45, 620, 400);
+        listPanel.add(new JLabel("ID"));
+        listPanel.add(new JLabel("NAME"));
+        listPanel.add(new JLabel("JOB"));
+        add(listPanel);
+
+
+       
+
+
+
+
+
+
+
+
     }
 
 
