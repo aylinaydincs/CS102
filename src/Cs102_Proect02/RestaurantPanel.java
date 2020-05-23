@@ -16,14 +16,19 @@ public class RestaurantPanel extends JPanel {
 
         this.listEmployees = new JButton("List Employees");
         add(listEmployees);
+        listEmployees.addActionListener(new RestaurantPanelListener());
         this.addCook = new JButton("Add Cook");
         add(addCook);
+        addCook.addActionListener(new RestaurantPanelListener());
         this.addWaiter = new JButton("Add Waiter");
         add(addWaiter);
+        addWaiter.addActionListener(new RestaurantPanelListener());
         this.calculateExpenses = new JButton("Calculate Expenses");
         add(calculateExpenses);
-
-
+        calculateExpenses.addActionListener(new RestaurantPanelListener());
+        
 
     }
+
+
 }
