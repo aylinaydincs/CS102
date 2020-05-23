@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.zip.DataFormatException;
 
 public class RestaurantPanel extends JPanel {
     private Restaurant restaurant;
@@ -24,11 +25,12 @@ public class RestaurantPanel extends JPanel {
 
         this.listEmployees = new JButton("List Employees");
         listEmployees.setBounds(50, 10, 150, 30);
-        listEmployees.addActionListener(new EmployeeListener());
         add(listEmployees);
+
         this.addCook = new JButton("Add Cook");
         addCook.setBounds(205, 10, 100, 30);
         add(addCook);
+
         this.addWaiter = new JButton("Add Waiter");
         addWaiter.setBounds(310, 10, 100, 30);
         add(addWaiter);
@@ -101,12 +103,13 @@ public class RestaurantPanel extends JPanel {
         calculateExpensePanel.add(profitDisplay);
         add(calculateExpensePanel);
 
+        listEmployees.addActionListener(new EmployeeListener());
+        addCook.addActionListener(new CookListener(enterCookName,enterSalary));
+
         this.listPanel.setVisible(false);
         this.cookPanel.setVisible(false);
         this.waiterPanel.setVisible(false);
         this.calculateExpensePanel.setVisible(false);
-
-
 
 
     }
@@ -124,6 +127,32 @@ public class RestaurantPanel extends JPanel {
 
             }
 
+        }
+    }
+    class CookListener implements ActionListener{
+        private JTextField name;
+        private JTextField salary;
+        public CookListener(JTextField name , JTextField salary) {
+            this.name = name;
+            this.salary = salary;
+        }
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            if(actionEvent.getSource() instanceof JButton){
+               try {
+                   cookPanel.setVisible(true);
+                   String cookName = this.name.getText();
+                   Double cookSalary = Double.parseDouble(this.salary.getText());
+                   restaurant.addCook(cookName, cookSalary);
+                   this.name.setText(null);
+                   this.salary.setText(null);
+                   JOptionPane.showMessageDialog(null, "Cook added successfully");
+                   cookPanel.setVisible(false);
+               } catch (Exception e){
+                   JOptionPane.showMessageDialog(null,"Please, give proper salary");
+                   actionPerformed(actionEvent);
+               }
+            }
         }
     }
 
