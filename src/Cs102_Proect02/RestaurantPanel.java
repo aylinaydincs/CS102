@@ -13,10 +13,17 @@ public class RestaurantPanel extends JPanel {
     public RestaurantPanel(Restaurant restaurant) {
         this.restaurant = restaurant;
         this.setLayout(new FlowLayout());
+
         this.listEmployees = new JButton("List Employees");
+        add(listEmployees);
         this.addCook = new JButton("Add Cook");
+        add(addCook);
         this.addWaiter = new JButton("Add Waiter");
+        add(addWaiter);
         this.calculateExpenses = new JButton("Calculate Expenses");
+        add(calculateExpenses);
+
+
 
     }
 }
