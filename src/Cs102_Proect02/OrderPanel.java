@@ -23,37 +23,34 @@ public class OrderPanel extends JPanel {
         this.productAddPanel = new JPanel(new GridLayout(4,2));
         Border productBorder = BorderFactory.createTitledBorder("Add Product");
         this.productAddPanel.setBorder(productBorder);
-
         JLabel product = new JLabel("Product:");
         this.productAddPanel.add(product);
-
         JComboBox selectProduct = new JComboBox();
+        addingProduct(selectProduct);
         this.productAddPanel.add(selectProduct);
-
         JLabel count = new JLabel("Count:");
         this.productAddPanel.add(count);
-
         JSpinner spinner = new JSpinner();
         this.productAddPanel.add(spinner);
-
         JLabel price = new JLabel("Price:");
         this.productAddPanel.add(price);
-
         JLabel priceDisplay = new JLabel("0,00 TL");
         this.productAddPanel.add(priceDisplay);
-
         JButton addButton = new JButton("Add");
         this.productAddPanel.add(addButton);
-
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Product Name");
         model.addColumn("Count");
         model.addColumn("Price");
-
         add(productAddPanel);
 
 
 
+    }
+    private void addingProduct(JComboBox comboBox){
+        for(int i=0;i<restaurant.getProducts().size();++i){
+            comboBox.addItem(restaurant.getProducts().get(i).getName());
+        }
     }
 
 }
