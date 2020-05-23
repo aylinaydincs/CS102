@@ -2,6 +2,8 @@ package Cs102_Proect02;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RestaurantPanel extends JPanel {
     private Restaurant restaurant;
@@ -10,21 +12,27 @@ public class RestaurantPanel extends JPanel {
     private JPanel waiterPanel;
     private JPanel calculateExpensePanel;
 
+    private JButton listEmployees;
+    private JButton addCook;
+    private JButton addWaiter;
+    private JButton calculateExpenses;
+
 
     public RestaurantPanel(Restaurant restaurant) {
         this.restaurant = restaurant;
         setLayout(null);
 
-        JButton listEmployees = new JButton("List Employees");
+        this.listEmployees = new JButton("List Employees");
         listEmployees.setBounds(50, 10, 150, 30);
+        listEmployees.addActionListener(new EmployeeListener());
         add(listEmployees);
-        JButton addCook = new JButton("Add Cook");
+        this.addCook = new JButton("Add Cook");
         addCook.setBounds(205, 10, 100, 30);
         add(addCook);
-        JButton addWaiter = new JButton("Add Waiter");
+        this.addWaiter = new JButton("Add Waiter");
         addWaiter.setBounds(310, 10, 100, 30);
         add(addWaiter);
-        JButton calculateExpenses = new JButton("Calculate Expenses");
+        this.calculateExpenses = new JButton("Calculate Expenses");
         calculateExpenses.setBounds(415, 10, 150, 30);
         add(calculateExpenses);
 
@@ -101,6 +109,22 @@ public class RestaurantPanel extends JPanel {
 
 
 
+    }
+
+    class EmployeeListener implements ActionListener{
+        public EmployeeListener() {
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() instanceof JButton ){
+                listPanel.setVisible(true);
+                cookPanel.setVisible(false);
+                waiterPanel.setVisible(false);
+                calculateExpensePanel.setVisible(false);
+
+            }
+
+        }
     }
 
 

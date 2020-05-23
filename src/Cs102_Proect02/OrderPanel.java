@@ -70,7 +70,11 @@ public class OrderPanel extends JPanel {
         add(productAddPanel);
         add(currentOrder);
         add(finalPanel);
-        
+
+
+        this.productAddPanel.setVisible(false);
+        this.currentOrder.setVisible(false);
+        this.finalPanel.setVisible(false);
 
     }
     private void addingProduct(JComboBox comboBox){
