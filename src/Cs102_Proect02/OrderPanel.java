@@ -44,6 +44,14 @@ public class OrderPanel extends JPanel {
         model.addColumn("Price");
         add(productAddPanel);
 
+        this.currentOrder = new JPanel();
+        JTable orderTable = new JTable(model);
+        this.currentOrder.add(orderTable);
+        orderTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
+        this.currentOrder.add(new JScrollPane(orderTable));
+        add(currentOrder);
+
+
 
 
     }
