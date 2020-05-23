@@ -36,6 +36,7 @@ public class RestaurantPanel extends JPanel {
         listPanel.add(new JLabel("JOB"));
         add(listPanel);
 
+
         this.cookPanel = new JPanel(null);
         this.cookPanel.setBounds(1, 45, 620, 200);
         JLabel cookName = new JLabel("Name:");
@@ -68,7 +69,32 @@ public class RestaurantPanel extends JPanel {
         waiterAdd.setBounds(313, 38, 300, 24);
         waiterPanel.add(waiterAdd);
         add(waiterPanel);
-        
+
+
+        this.calculateExpensePanel = new JPanel(null);
+        this.calculateExpensePanel.setBounds(1, 45, 620, 200);
+        JLabel expenses = new JLabel("Expenses:");
+        expenses.setBounds(1, 10, 310, 30);
+        calculateExpensePanel.add(expenses);
+        JLabel expensesDisplay = new JLabel("0.0 TL");
+        expensesDisplay.setBounds(312, 10, 300, 24);
+        calculateExpensePanel.add(expensesDisplay);
+        JLabel revenue = new JLabel("Revenue:");
+        revenue.setBounds(1, 36, 310, 24);
+        calculateExpensePanel.add(revenue);
+        JLabel revenueDisplay = new JLabel("0.0 TL");
+        revenueDisplay.setBounds(312, 36, 300, 24);
+        calculateExpensePanel.add(revenueDisplay);
+        JLabel profit = new JLabel("Profit:");
+        profit.setBounds(1, 66, 300, 24);
+        calculateExpensePanel.add(profit);
+        JLabel profitDisplay = new JLabel("0.0 TL");
+        profitDisplay.setBounds(312, 66, 300, 24);
+        calculateExpensePanel.add(profitDisplay);
+        add(calculateExpensePanel);
+
+
+
 
     }
 
