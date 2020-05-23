@@ -37,7 +37,19 @@ public class RestaurantPanel extends JPanel {
         add(listPanel);
 
 
-       
+        this.waiterPanel = new JPanel(null);
+        JLabel waiterName = new JLabel("NAME:");
+        this.waiterPanel.setBounds(1, 45, 620, 70);
+        waiterName.setBounds(1, 10, 310, 30);
+        waiterPanel.add(waiterName);
+        JTextField enterName = new JTextField();
+        enterName.setBounds(313, 10, 300, 30);
+        waiterPanel.add(enterName);
+        JButton waiterAdd = new JButton("Add");
+        waiterAdd.setBounds(313, 40, 300, 30);
+        waiterPanel.add(waiterAdd);
+        add(waiterPanel);
+
 
 
 
