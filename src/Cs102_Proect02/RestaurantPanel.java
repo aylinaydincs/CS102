@@ -1,6 +1,7 @@
 package Cs102_Proect02;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,16 +35,21 @@ public class RestaurantPanel extends JPanel {
         this.addWaiter = new JButton("Add Waiter");
         addWaiter.setBounds(310, 10, 100, 30);
         add(addWaiter);
+
         this.calculateExpenses = new JButton("Calculate Expenses");
         calculateExpenses.setBounds(415, 10, 150, 30);
         add(calculateExpenses);
 
 
-        this.listPanel = new JPanel(new GridLayout(1,3));
+        this.listPanel = new JPanel();
         listPanel.setBounds(1, 45, 620, 400);
-        listPanel.add(new JLabel("ID"));
-        listPanel.add(new JLabel("NAME"));
-        listPanel.add(new JLabel("JOB"));
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("NAME");
+        tableModel.addColumn("JOB");
+        JTable listEmployeesTable = new JTable(tableModel);
+        listEmployeesTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
+        listPanel.add(new JScrollPane(listEmployeesTable));
         add(listPanel);
 
 
@@ -107,7 +113,7 @@ public class RestaurantPanel extends JPanel {
         this.listEmployees.addActionListener(new EmployeeListener());
         this.addCook.addActionListener(new CookListener(enterCookName,enterSalary));
         this.addWaiter.addActionListener(new WaiterListener(enterWaiterName));
-        
+
 
         this.listPanel.setVisible(false);
         this.cookPanel.setVisible(false);
@@ -118,18 +124,27 @@ public class RestaurantPanel extends JPanel {
     }
 
     class EmployeeListener implements ActionListener{
-        public EmployeeListener() {
+        private DefaultTableModel tableModel;
+        public EmployeeListener(DefaultTableModel tableModel) {
+            this.tableModel=tableModel;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() instanceof JButton ){
                 listPanel.setVisible(true);
-                cookPanel.setVisible(false);
-                waiterPanel.setVisible(false);
-                calculateExpensePanel.setVisible(false);
+                for(int i =0;i<restaurant.getEmployees().size();++i){
+                    String id = Integer.toString(restaurant.getEmployees().get(i).getId());
+                    String name = restaurant.getEmployees().get(i).getName();
+                    if(restaurant.getEmployees().get(i) instanceof Cook){
+                        this.tableModel.addRow(new Object[]{id, name, "Cook"});
+                    }
+                    else if(restaurant.getEmployees().get(i) instanceof Waiter){
+                        this.tableModel.addRow(new Object[]{id, name, "Waiter"});
+                    }
+                }
+                listPanel.setVisible(false);
 
             }
-
         }
     }
     class CookListener implements ActionListener{
@@ -176,6 +191,7 @@ public class RestaurantPanel extends JPanel {
             }
         }
     }
+
 
 
 }

@@ -132,6 +132,7 @@ public class Restaurant {
     public ArrayList<Product> getProducts() {
         return products;
     }
+    public ArrayList<Employee> getEmployees(){return employees;}
 
 }
 
