@@ -5,28 +5,29 @@ import java.awt.*;
 
 public class RestaurantPanel extends JPanel {
     private Restaurant restaurant;
-    protected JButton listEmployees ;
-    protected JButton addCook;
-    protected JButton addWaiter;
-    protected JButton calculateExpenses;
+    private JPanel listPanel;
+    private JPanel cookPanel;
+    private JPanel waiterPanel;
+    private JPanel calculateExpensePanel;
+
 
     public RestaurantPanel(Restaurant restaurant) {
         this.restaurant = restaurant;
-        this.setLayout(new FlowLayout());
+        setLayout(null);
 
-        this.listEmployees = new JButton("List Employees");
+        JButton listEmployees = new JButton("List Employees");
+        listEmployees.setBounds(50, 10, 150, 30);
         add(listEmployees);
-        listEmployees.addActionListener(new RestaurantPanelListener());
-        this.addCook = new JButton("Add Cook");
+        JButton addCook = new JButton("Add Cook");
+        addCook.setBounds(205, 10, 100, 30);
         add(addCook);
-        addCook.addActionListener(new RestaurantPanelListener());
-        this.addWaiter = new JButton("Add Waiter");
+        JButton addWaiter = new JButton("Add Waiter");
+        addWaiter.setBounds(310, 10, 100, 30);
         add(addWaiter);
-        addWaiter.addActionListener(new RestaurantPanelListener());
-        this.calculateExpenses = new JButton("Calculate Expenses");
+        JButton calculateExpenses = new JButton("Calculate Expenses");
+        calculateExpenses.setBounds(415, 10, 150, 30);
         add(calculateExpenses);
-        calculateExpenses.addActionListener(new RestaurantPanelListener());
-        
+
 
     }
 
