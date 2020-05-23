@@ -36,27 +36,39 @@ public class RestaurantPanel extends JPanel {
         listPanel.add(new JLabel("JOB"));
         add(listPanel);
 
+        this.cookPanel = new JPanel(null);
+        this.cookPanel.setBounds(1, 45, 620, 200);
+        JLabel cookName = new JLabel("Name:");
+        cookName.setBounds(1, 10, 310, 24);
+        cookPanel.add(cookName);
+        JTextField enterCookName = new JTextField();
+        enterCookName.setBounds(312, 10, 300, 24);
+        cookPanel.add(enterCookName);
+        JLabel salary = new JLabel("Salary:");
+        salary.setBounds(1, 36, 310, 24);
+        cookPanel.add(salary);
+        JTextField enterSalary = new JTextField();
+        enterSalary.setBounds(312, 36, 300, 24);
+        cookPanel.add(enterSalary);
+        JButton addingCook = new JButton("Add");
+        addingCook.setBounds(312, 70, 300, 30);
+        cookPanel.add(addingCook);
+        add(cookPanel);
+
 
         this.waiterPanel = new JPanel(null);
-        JLabel waiterName = new JLabel("NAME:");
         this.waiterPanel.setBounds(1, 45, 620, 70);
+        JLabel waiterName = new JLabel("NAME:");
         waiterName.setBounds(1, 10, 310, 30);
         waiterPanel.add(waiterName);
         JTextField enterName = new JTextField();
-        enterName.setBounds(313, 10, 300, 30);
+        enterName.setBounds(313, 10, 300, 24);
         waiterPanel.add(enterName);
         JButton waiterAdd = new JButton("Add");
-        waiterAdd.setBounds(313, 40, 300, 30);
+        waiterAdd.setBounds(313, 38, 300, 24);
         waiterPanel.add(waiterAdd);
         add(waiterPanel);
-
-
-
-
-
-
-
-
+        
 
     }
 
