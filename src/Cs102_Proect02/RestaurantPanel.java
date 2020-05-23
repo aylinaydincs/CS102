@@ -72,13 +72,14 @@ public class RestaurantPanel extends JPanel {
         JLabel waiterName = new JLabel("NAME:");
         waiterName.setBounds(1, 10, 310, 30);
         waiterPanel.add(waiterName);
-        JTextField enterName = new JTextField();
-        enterName.setBounds(313, 10, 300, 24);
-        waiterPanel.add(enterName);
+        JTextField enterWaiterName = new JTextField();
+        enterWaiterName.setBounds(313, 10, 300, 24);
+        waiterPanel.add(enterWaiterName);
         JButton waiterAdd = new JButton("Add");
         waiterAdd.setBounds(313, 38, 300, 24);
         waiterPanel.add(waiterAdd);
         add(waiterPanel);
+
 
 
         this.calculateExpensePanel = new JPanel(null);
@@ -103,8 +104,10 @@ public class RestaurantPanel extends JPanel {
         calculateExpensePanel.add(profitDisplay);
         add(calculateExpensePanel);
 
-        listEmployees.addActionListener(new EmployeeListener());
-        addCook.addActionListener(new CookListener(enterCookName,enterSalary));
+        this.listEmployees.addActionListener(new EmployeeListener());
+        this.addCook.addActionListener(new CookListener(enterCookName,enterSalary));
+        this.addWaiter.addActionListener(new WaiterListener(enterWaiterName));
+        
 
         this.listPanel.setVisible(false);
         this.cookPanel.setVisible(false);
@@ -152,6 +155,24 @@ public class RestaurantPanel extends JPanel {
                    JOptionPane.showMessageDialog(null,"Please, give proper salary");
                    actionPerformed(actionEvent);
                }
+            }
+        }
+    }
+    class WaiterListener implements ActionListener{
+        private JTextField name;
+        public WaiterListener(JTextField name) {
+            this.name = name;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() instanceof JButton){
+                waiterPanel.setVisible(true);
+                String waiterName = this.name.getText();
+                restaurant.addWaiter(waiterName);
+                this.name.setText(null);
+                JOptionPane.showMessageDialog(null, "Waiter added successfully");
+                waiterPanel.setVisible(false);
+
             }
         }
     }
