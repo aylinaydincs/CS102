@@ -5,7 +5,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.zip.DataFormatException;
 
 public class RestaurantPanel extends JPanel {
     private Restaurant restaurant;
@@ -18,7 +17,6 @@ public class RestaurantPanel extends JPanel {
     private JButton addCook;
     private JButton addWaiter;
     private JButton calculateExpenses;
-
 
     public RestaurantPanel(Restaurant restaurant) {
         this.restaurant = restaurant;
@@ -68,6 +66,8 @@ public class RestaurantPanel extends JPanel {
         enterSalary.setBounds(312, 36, 300, 24);
         cookPanel.add(enterSalary);
         JButton addingCook = new JButton("Add");
+
+
         addingCook.setBounds(312, 70, 300, 30);
         cookPanel.add(addingCook);
         add(cookPanel);
@@ -110,9 +110,17 @@ public class RestaurantPanel extends JPanel {
         calculateExpensePanel.add(profitDisplay);
         add(calculateExpensePanel);
 
-        this.listEmployees.addActionListener(new EmployeeListener());
-        this.addCook.addActionListener(new CookListener(enterCookName,enterSalary));
-        this.addWaiter.addActionListener(new WaiterListener(enterWaiterName));
+
+        this.listEmployees.addActionListener(new visibilityListener(listPanel));
+        this.listEmployees.addActionListener(new EmployeeListener(tableModel));
+
+        this.addCook.addActionListener(new visibilityListener(cookPanel));
+        addingCook.addActionListener(new CookListener(enterCookName,enterSalary));
+
+        this.addWaiter.addActionListener(new visibilityListener(waiterPanel));
+        waiterAdd.addActionListener(new WaiterListener(enterWaiterName));
+
+        this.calculateExpenses.addActionListener(new visibilityListener(calculateExpensePanel));
 
 
         this.listPanel.setVisible(false);
@@ -120,10 +128,43 @@ public class RestaurantPanel extends JPanel {
         this.waiterPanel.setVisible(false);
         this.calculateExpensePanel.setVisible(false);
 
-
     }
 
-    class EmployeeListener implements ActionListener{
+    private class visibilityListener implements ActionListener {
+        private JPanel panel;
+
+        public visibilityListener(JPanel panel) {
+            this.panel = panel;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JButton) {
+                this.panel.setVisible(true);
+                if(panel == listPanel){
+                    cookPanel.setVisible(false);
+                    waiterPanel.setVisible(false);
+                    calculateExpensePanel.setVisible(false);
+                }
+                if(panel == cookPanel){
+                    listPanel.setVisible(false);
+                    waiterPanel.setVisible(false);
+                    calculateExpensePanel.setVisible(false);
+                }
+                if(panel == waiterPanel){
+                    listPanel.setVisible(false);
+                    cookPanel.setVisible(false);
+                    calculateExpensePanel.setVisible(false);
+                }
+                if(panel == calculateExpensePanel){
+                    listPanel.setVisible(false);
+                    cookPanel.setVisible(false);
+                    waiterPanel.setVisible(false);
+                }
+
+            }
+        }
+    }
+    private class EmployeeListener implements ActionListener{
         private DefaultTableModel tableModel;
         public EmployeeListener(DefaultTableModel tableModel) {
             this.tableModel=tableModel;
@@ -131,7 +172,6 @@ public class RestaurantPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() instanceof JButton ){
-                listPanel.setVisible(true);
                 for(int i =0;i<restaurant.getEmployees().size();++i){
                     String id = Integer.toString(restaurant.getEmployees().get(i).getId());
                     String name = restaurant.getEmployees().get(i).getName();
@@ -142,38 +182,40 @@ public class RestaurantPanel extends JPanel {
                         this.tableModel.addRow(new Object[]{id, name, "Waiter"});
                     }
                 }
-                listPanel.setVisible(false);
+
 
             }
         }
     }
-    class CookListener implements ActionListener{
+    private class CookListener implements ActionListener{
         private JTextField name;
         private JTextField salary;
+
         public CookListener(JTextField name , JTextField salary) {
             this.name = name;
             this.salary = salary;
+
         }
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(actionEvent.getSource() instanceof JButton){
-               try {
-                   cookPanel.setVisible(true);
-                   String cookName = this.name.getText();
-                   Double cookSalary = Double.parseDouble(this.salary.getText());
-                   restaurant.addCook(cookName, cookSalary);
-                   this.name.setText(null);
-                   this.salary.setText(null);
-                   JOptionPane.showMessageDialog(null, "Cook added successfully");
-                   cookPanel.setVisible(false);
-               } catch (Exception e){
-                   JOptionPane.showMessageDialog(null,"Please, give proper salary");
-                   actionPerformed(actionEvent);
-               }
+            if(actionEvent.getSource() instanceof JButton) {
+
+                try {
+                    String cookName = this.name.getText();
+                    double cookSalary = Double.parseDouble(salary.getText());
+                    restaurant.addCook(cookName, cookSalary);
+                    this.name.setText(null);
+                    this.salary.setText(null);
+                    JOptionPane.showMessageDialog(null, "Cook added successfully");
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Please, give proper salary");
+                    actionPerformed(actionEvent);
+                }
             }
         }
     }
-    class WaiterListener implements ActionListener{
+    private class WaiterListener implements ActionListener{
         private JTextField name;
         public WaiterListener(JTextField name) {
             this.name = name;
@@ -181,16 +223,15 @@ public class RestaurantPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() instanceof JButton){
-                waiterPanel.setVisible(true);
                 String waiterName = this.name.getText();
                 restaurant.addWaiter(waiterName);
                 this.name.setText(null);
                 JOptionPane.showMessageDialog(null, "Waiter added successfully");
-                waiterPanel.setVisible(false);
 
             }
         }
     }
+
 
 
 
