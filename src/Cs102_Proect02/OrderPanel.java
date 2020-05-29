@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class OrderPanel extends JPanel {
     private Restaurant restaurant;
@@ -71,6 +73,9 @@ public class OrderPanel extends JPanel {
         add(currentOrder);
         add(finalPanel);
 
+        newOrder.addActionListener(new orderListener());
+        selectProduct.addActionListener(new productListener(priceDisplay,selectProduct));
+
 
         this.productAddPanel.setVisible(false);
         this.currentOrder.setVisible(false);
@@ -79,9 +84,47 @@ public class OrderPanel extends JPanel {
     }
     private void addingProduct(JComboBox comboBox){
         for(int i=0;i<restaurant.getProducts().size();++i){
-            comboBox.addItem(restaurant.getProducts().get(i).getName());
+            comboBox.addItem(restaurant.getProducts().get(i));
         }
     }
+    private void setVisibility(){
+        this.productAddPanel.setVisible(true);
+        this.currentOrder.setVisible(true);
+        this.finalPanel.setVisible(true);
+    }
+    private class orderListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() instanceof JButton){
+                mainPanel.setVisible(false);
+                setVisibility();
+                restaurant.assignWaiter();
+                JOptionPane.showMessageDialog(null,"Hi, I am " + restaurant.assignWaiter().getName() +
+                        ".\nI will be our waiter today.\nWhat would you like to get today?");
+
+            }
+        }
+    }
+    private class productListener implements ActionListener{
+        private JLabel price;
+        private JComboBox productBox;
+        public productListener(JLabel price,JComboBox productBox){
+            this.price =price;
+            this.productBox = productBox;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() instanceof JComboBox){
+              Product product = (Product) productBox.getSelectedItem();
+              price.setText(Double.toString(product.getSellingPrice()));
+
+            }
+
+        }
+    }
+
+
+
 
 }
 
