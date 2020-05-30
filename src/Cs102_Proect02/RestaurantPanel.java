@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RestaurantPanel extends JPanel {
     private Restaurant restaurant;
@@ -166,24 +167,25 @@ public class RestaurantPanel extends JPanel {
     }
     private class EmployeeListener implements ActionListener{
         private DefaultTableModel tableModel;
+        private ArrayList<Employee> listed = new ArrayList<Employee>();
         public EmployeeListener(DefaultTableModel tableModel) {
             this.tableModel=tableModel;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() instanceof JButton ){
-                for(int i =0;i<restaurant.getEmployees().size();++i){
+                for (int i = 0; i < restaurant.getEmployees().size(); ++i) {
                     String id = Integer.toString(restaurant.getEmployees().get(i).getId());
                     String name = restaurant.getEmployees().get(i).getName();
-                    if(restaurant.getEmployees().get(i) instanceof Cook){
-                        this.tableModel.addRow(new Object[]{id, name, "Cook"});
-                    }
-                    else if(restaurant.getEmployees().get(i) instanceof Waiter){
-                        this.tableModel.addRow(new Object[]{id, name, "Waiter"});
+                    if(!listed.contains(restaurant.getEmployees().get(i))) {
+                        if (restaurant.getEmployees().get(i) instanceof Cook) {
+                            this.tableModel.addRow(new Object[]{id, name, "Cook"});
+                        } else if (restaurant.getEmployees().get(i) instanceof Waiter) {
+                            this.tableModel.addRow(new Object[]{id, name, "Waiter"});
+                        }
+                        listed.add(restaurant.getEmployees().get(i));
                     }
                 }
-
-
             }
         }
     }
@@ -198,8 +200,7 @@ public class RestaurantPanel extends JPanel {
         }
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(actionEvent.getSource() instanceof JButton) {
-
+            if (actionEvent.getSource() instanceof JButton) {
                 try {
                     String cookName = this.name.getText();
                     double cookSalary = Double.parseDouble(salary.getText());
@@ -210,7 +211,7 @@ public class RestaurantPanel extends JPanel {
 
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Please, give proper salary");
-                    actionPerformed(actionEvent);
+                    salary.setText("");
                 }
             }
         }
@@ -227,12 +228,9 @@ public class RestaurantPanel extends JPanel {
                 restaurant.addWaiter(waiterName);
                 this.name.setText(null);
                 JOptionPane.showMessageDialog(null, "Waiter added successfully");
-
             }
         }
     }
-
-
 
 
 }

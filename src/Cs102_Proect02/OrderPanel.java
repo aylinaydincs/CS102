@@ -13,6 +13,8 @@ public class OrderPanel extends JPanel {
     private  JPanel productAddPanel;
     private  JPanel currentOrder;
     private  JPanel finalPanel;
+    private Order order = new Order();
+    private Waiter waiter;
 
     public OrderPanel(Restaurant restaurant) {
         this.restaurant = restaurant;
@@ -36,7 +38,8 @@ public class OrderPanel extends JPanel {
 
         JLabel count = new JLabel("Count:");
         count.setPreferredSize(new Dimension(300, 35));
-        JSpinner spinner = new JSpinner();
+        SpinnerNumberModel numberModel = new SpinnerNumberModel(1,1,10000,1);
+        JSpinner spinner = new JSpinner(numberModel);
         spinner.setPreferredSize(new Dimension(300, 35));
         this.productAddPanel.add(count);
         this.productAddPanel.add(spinner);
@@ -75,6 +78,8 @@ public class OrderPanel extends JPanel {
 
         newOrder.addActionListener(new orderListener());
         selectProduct.addActionListener(new productListener(priceDisplay,selectProduct));
+        addButton.addActionListener(new addingListener(model,spinner,selectProduct));
+        finalize.addActionListener(new finalizeListener(model));
 
 
         this.productAddPanel.setVisible(false);
@@ -99,6 +104,7 @@ public class OrderPanel extends JPanel {
                 mainPanel.setVisible(false);
                 setVisibility();
                 restaurant.assignWaiter();
+                waiter = restaurant.assignWaiter();
                 JOptionPane.showMessageDialog(null,"Hi, I am " + restaurant.assignWaiter().getName() +
                         ".\nI will be our waiter today.\nWhat would you like to get today?");
 
@@ -122,10 +128,54 @@ public class OrderPanel extends JPanel {
 
         }
     }
+    private class addingListener implements ActionListener{
+        private DefaultTableModel tableModel;
+        private JSpinner spinner;
+        private JComboBox productBox;
+
+        public addingListener(DefaultTableModel tableModel, JSpinner spinner, JComboBox productBox) {
+            this.tableModel = tableModel;
+            this.spinner = spinner;
+            this.productBox = productBox;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() instanceof JButton){
+                Product product = (Product) productBox.getSelectedItem();
+                double price = product.getSellingPrice();
+                int count = (Integer) spinner.getValue();
+                tableModel.addRow(new Object[]{product.getName(), Integer.toString(count), Double.toString(price * count)});
+                for(int i=0;i<count;++i){
+                    order.addProduct(product);
+                }
+            }
+        }
+    }
+    private class finalizeListener implements ActionListener{
+        private DefaultTableModel tableModel;
+
+        public finalizeListener(DefaultTableModel tableModel) {
+            this.tableModel = tableModel;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JButton){
+                if (tableModel.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(new JButton(), "Please do not forget to add product");
+                }
+                else{
+                    waiter.createOrder(order);
+                    JOptionPane.showMessageDialog(null, "Your order is completed.\n" +
+                            "Total price is " + order.calculateTotalPrice() + " TL.");
+
+                }
+            }
+        }
+    }
 
 
-
-
+    
 }
 
 
