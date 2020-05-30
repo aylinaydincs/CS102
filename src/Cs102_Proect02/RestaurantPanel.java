@@ -143,29 +143,26 @@ public class RestaurantPanel extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() instanceof JButton) {
-                this.panel.setVisible(true);
-                if (panel == listPanel) {
-                    cookPanel.setVisible(false);
-                    waiterPanel.setVisible(false);
-                    calculateExpensePanel.setVisible(false);
-                }
-                if (panel == cookPanel) {
-                    listPanel.setVisible(false);
-                    waiterPanel.setVisible(false);
-                    calculateExpensePanel.setVisible(false);
-                }
-                if (panel == waiterPanel) {
-                    listPanel.setVisible(false);
-                    cookPanel.setVisible(false);
-                    calculateExpensePanel.setVisible(false);
-                }
-                if (panel == calculateExpensePanel) {
-                    listPanel.setVisible(false);
-                    cookPanel.setVisible(false);
-                    waiterPanel.setVisible(false);
-                }
-
+            this.panel.setVisible(true);
+            if (panel == listPanel) {
+                cookPanel.setVisible(false);
+                waiterPanel.setVisible(false);
+                calculateExpensePanel.setVisible(false);
+            }
+            if (panel == cookPanel) {
+                listPanel.setVisible(false);
+                waiterPanel.setVisible(false);
+                calculateExpensePanel.setVisible(false);
+            }
+            if (panel == waiterPanel) {
+                listPanel.setVisible(false);
+                cookPanel.setVisible(false);
+                calculateExpensePanel.setVisible(false);
+            }
+            if (panel == calculateExpensePanel) {
+                listPanel.setVisible(false);
+                cookPanel.setVisible(false);
+                waiterPanel.setVisible(false);
             }
         }
     }
@@ -180,18 +177,16 @@ public class RestaurantPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() instanceof JButton) {
-                for (int i = 0; i < restaurant.getEmployees().size(); ++i) {
-                    String id = Integer.toString(restaurant.getEmployees().get(i).getId());
-                    String name = restaurant.getEmployees().get(i).getName();
-                    if (!listed.contains(restaurant.getEmployees().get(i))) {
-                        if (restaurant.getEmployees().get(i) instanceof Cook) {
-                            this.tableModel.addRow(new Object[]{id, name, "Cook"});
-                        } else if (restaurant.getEmployees().get(i) instanceof Waiter) {
-                            this.tableModel.addRow(new Object[]{id, name, "Waiter"});
-                        }
-                        listed.add(restaurant.getEmployees().get(i));
+            for (int i = 0; i < restaurant.getEmployees().size(); ++i) {
+                String id = Integer.toString(restaurant.getEmployees().get(i).getId());
+                String name = restaurant.getEmployees().get(i).getName();
+                if (!listed.contains(restaurant.getEmployees().get(i))) {
+                    if (restaurant.getEmployees().get(i) instanceof Cook) {
+                        this.tableModel.addRow(new Object[]{id, name, "Cook"});
+                    } else if (restaurant.getEmployees().get(i) instanceof Waiter) {
+                        this.tableModel.addRow(new Object[]{id, name, "Waiter"});
                     }
+                    listed.add(restaurant.getEmployees().get(i));
                 }
             }
         }
@@ -209,26 +204,24 @@ public class RestaurantPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if (actionEvent.getSource() instanceof JButton) {
-                if(this.name.getText().equals("")&&salary.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please, give valid inputs");
-                } else {
-                    try {
-                        String cookName = this.name.getText();
-                        double cookSalary = Double.parseDouble(salary.getText());
-                        if (cookSalary > 0) {
-                            restaurant.addCook(cookName, cookSalary);
-                            this.name.setText(null);
-                            this.salary.setText(null);
-                            JOptionPane.showMessageDialog(null, "Cook added successfully");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Please, give positive integer");
-                        }
-
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Please, give proper salary");
-                        salary.setText("");
+            if(this.name.getText().equals("")&&salary.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please, give valid inputs");
+            } else {
+                try {
+                    String cookName = this.name.getText();
+                    double cookSalary = Double.parseDouble(salary.getText());
+                    if (cookSalary > 0) {
+                        restaurant.addCook(cookName, cookSalary);
+                        this.name.setText(null);
+                        this.salary.setText(null);
+                        JOptionPane.showMessageDialog(null, "Cook added successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please, give positive salary");
                     }
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Please, give proper salary");
+                    salary.setText("");
                 }
             }
         }
@@ -243,15 +236,13 @@ public class RestaurantPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() instanceof JButton) {
-                if(this.name.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please, give valid input");
-                } else {
-                    String waiterName = this.name.getText();
-                    restaurant.addWaiter(waiterName);
-                    this.name.setText(null);
-                    JOptionPane.showMessageDialog(null, "Waiter added successfully");
-                }
+            if(this.name.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please, give valid input");
+            } else {
+                String waiterName = this.name.getText();
+                restaurant.addWaiter(waiterName);
+                this.name.setText(null);
+                JOptionPane.showMessageDialog(null, "Waiter added successfully");
             }
         }
     }
@@ -268,12 +259,10 @@ public class RestaurantPanel extends JPanel {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() instanceof JButton){
-                expense.setText(String.valueOf(restaurant.calculateExpenses()));
-                revenue.setText(String.valueOf(restaurant.calculateRevenue()));
-                profit.setText(String.valueOf(restaurant.calculateRevenue()-restaurant.calculateExpenses()));
+            expense.setText(String.valueOf(restaurant.calculateExpenses()));
+            revenue.setText(String.valueOf(restaurant.calculateRevenue()));
+            profit.setText(String.valueOf(restaurant.calculateRevenue()-restaurant.calculateExpenses()));
 
-            }
         }
     }
 

@@ -59,7 +59,7 @@ public class OrderPanel extends JPanel {
         model.addColumn("Price");
 
 
-        this.currentOrder = new JPanel();
+        this.currentOrder = new JPanel(new BorderLayout());
         Border orderBorder = BorderFactory.createTitledBorder("Current Order");
         currentOrder.setBorder(orderBorder);
 
@@ -68,28 +68,28 @@ public class OrderPanel extends JPanel {
                 return false;
             };
         };
-        this.currentOrder.add(orderTable);
-        orderTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
+        this.currentOrder.add(orderTable,BorderLayout.BEFORE_LINE_BEGINS);
+        orderTable.setPreferredScrollableViewportSize(new Dimension(600, 180));
         this.currentOrder.add(new JScrollPane(orderTable));
 
-
-        this.finalPanel = new JPanel();
+        this.finalPanel = new JPanel(new BorderLayout());
         JButton finalize = new JButton("Finalize");
-        this.finalPanel.add(finalize);
+        this.finalPanel.add(finalize,BorderLayout.EAST);
+        finalize.setPreferredSize(new Dimension(90,25));
+        this.currentOrder.add(finalPanel,BorderLayout.PAGE_END);
 
         add(productAddPanel);
         add(currentOrder);
-        add(finalPanel);
+
 
         newOrder.addActionListener(new orderListener());
-        selectProduct.addActionListener(new productListener(priceDisplay,selectProduct));
+        selectProduct.addActionListener(new productListener(priceDisplay,selectProduct,spinner));
         addButton.addActionListener(new addingListener(model,spinner,selectProduct));
-        finalize.addActionListener(new finalizeListener(model,spinner,selectProduct));
+        finalize.addActionListener(new finalizeListener(model,spinner,selectProduct,priceDisplay));
 
 
         this.productAddPanel.setVisible(false);
         this.currentOrder.setVisible(false);
-        this.finalPanel.setVisible(false);
 
     }
     private void addingProduct(JComboBox comboBox){
@@ -121,17 +121,22 @@ public class OrderPanel extends JPanel {
     private class productListener implements ActionListener{
         private JLabel price;
         private JComboBox productBox;
-        public productListener(JLabel price,JComboBox productBox){
-            this.price =price;
+        private JSpinner spinner;
+
+        public productListener(JLabel price, JComboBox productBox, JSpinner spinner) {
+            this.price = price;
             this.productBox = productBox;
+            this.spinner = spinner;
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() instanceof JComboBox){
-                if(productBox.getSelectedItem() instanceof Product){
-                    Product product = (Product) productBox.getSelectedItem();
-                    price.setText(Double.toString(product.getSellingPrice()));
-                }
+            if(productBox.getSelectedItem() instanceof Product){
+                Product product = (Product) productBox.getSelectedItem();
+                price.setText(Double.toString(product.getSellingPrice()));
+            } else{
+                price.setText("0,00 TL");
+                spinner.setValue(1);
             }
         }
     }
@@ -167,10 +172,14 @@ public class OrderPanel extends JPanel {
     private class finalizeListener implements ActionListener{
         private DefaultTableModel tableModel;
         private JComboBox comboBox;
+        private JSpinner spinner;
+        private JLabel price;
 
-        public finalizeListener(DefaultTableModel tableModel, JSpinner spinner, JComboBox comboBox) {
+        public finalizeListener(DefaultTableModel tableModel, JSpinner spinner, JComboBox comboBox,JLabel price) {
             this.tableModel = tableModel;
             this.comboBox = comboBox;
+            this.spinner = spinner;
+            this.price=price;
         }
 
         @Override
@@ -185,6 +194,8 @@ public class OrderPanel extends JPanel {
                             "Total price is " + order.calculateTotalPrice() + " TL.");
                     tableModel.setRowCount(0);
                     this.comboBox.setSelectedItem(comboBox.getItemAt(0));
+                    this.spinner.setValue(1);
+                    this.price.setText("0,00 TL");
                     order = new Order();
                     productAddPanel.setVisible(false);
                     currentOrder.setVisible(false);
