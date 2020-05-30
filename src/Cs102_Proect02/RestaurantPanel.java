@@ -46,7 +46,12 @@ public class RestaurantPanel extends JPanel {
         tableModel.addColumn("ID");
         tableModel.addColumn("NAME");
         tableModel.addColumn("JOB");
-        JTable listEmployeesTable = new JTable(tableModel);
+        JTable listEmployeesTable = new JTable(tableModel){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            };
+        };
+
         listEmployeesTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
         listPanel.add(new JScrollPane(listEmployeesTable));
         add(listPanel);
@@ -164,6 +169,7 @@ public class RestaurantPanel extends JPanel {
             }
         }
     }
+
     private class EmployeeListener implements ActionListener {
         private DefaultTableModel tableModel;
         private ArrayList<Employee> listed = new ArrayList<Employee>();
@@ -190,6 +196,7 @@ public class RestaurantPanel extends JPanel {
             }
         }
     }
+
     private class CookListener implements ActionListener {
         private JTextField name;
         private JTextField salary;
@@ -203,21 +210,30 @@ public class RestaurantPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getSource() instanceof JButton) {
-                try {
-                    String cookName = this.name.getText();
-                    double cookSalary = Double.parseDouble(salary.getText());
-                    restaurant.addCook(cookName, cookSalary);
-                    this.name.setText(null);
-                    this.salary.setText(null);
-                    JOptionPane.showMessageDialog(null, "Cook added successfully");
+                if(this.name.getText().equals("")&&salary.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Please, give valid inputs");
+                } else {
+                    try {
+                        String cookName = this.name.getText();
+                        double cookSalary = Double.parseDouble(salary.getText());
+                        if (cookSalary > 0) {
+                            restaurant.addCook(cookName, cookSalary);
+                            this.name.setText(null);
+                            this.salary.setText(null);
+                            JOptionPane.showMessageDialog(null, "Cook added successfully");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please, give positive integer");
+                        }
 
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please, give proper salary");
-                    salary.setText("");
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Please, give proper salary");
+                        salary.setText("");
+                    }
                 }
             }
         }
     }
+
     private class WaiterListener implements ActionListener {
         private JTextField name;
 
@@ -228,13 +244,18 @@ public class RestaurantPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() instanceof JButton) {
-                String waiterName = this.name.getText();
-                restaurant.addWaiter(waiterName);
-                this.name.setText(null);
-                JOptionPane.showMessageDialog(null, "Waiter added successfully");
+                if(this.name.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Please, give valid input");
+                } else {
+                    String waiterName = this.name.getText();
+                    restaurant.addWaiter(waiterName);
+                    this.name.setText(null);
+                    JOptionPane.showMessageDialog(null, "Waiter added successfully");
+                }
             }
         }
     }
+
     private class CalculateExpenseListener implements ActionListener{
         private JLabel expense;
         private JLabel revenue;
@@ -255,5 +276,5 @@ public class RestaurantPanel extends JPanel {
             }
         }
     }
-    
+
 }

@@ -68,11 +68,12 @@ public class Restaurant {
         }
     }
 
-    public void listEmployees (){
+    //After creating GUI for Restaurant App this method become useless
+    /*public void listEmployees (){
         for (int i=0;i<employees.size();i++){
             System.out.println(employees.get(i).toString());
         }
-    }
+    }*/
 
     public Waiter assignWaiter() {
         int waiter =0;
