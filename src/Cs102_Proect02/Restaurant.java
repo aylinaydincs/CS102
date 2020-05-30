@@ -110,8 +110,6 @@ public class Restaurant {
                 }
             }
         }
-        System.out.println("Employee expenses: " + empexpense);
-        System.out.println("Order expenses: " + ordexpense);
         return empexpense + ordexpense;
     }
 
