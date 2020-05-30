@@ -79,7 +79,7 @@ public class OrderPanel extends JPanel {
         newOrder.addActionListener(new orderListener());
         selectProduct.addActionListener(new productListener(priceDisplay,selectProduct));
         addButton.addActionListener(new addingListener(model,spinner,selectProduct));
-        finalize.addActionListener(new finalizeListener(model));
+        finalize.addActionListener(new finalizeListener(model,spinner,selectProduct));
 
 
         this.productAddPanel.setVisible(false);
@@ -153,16 +153,20 @@ public class OrderPanel extends JPanel {
     }
     private class finalizeListener implements ActionListener{
         private DefaultTableModel tableModel;
+        private JSpinner spinner;
+        private JComboBox comboBox;
 
-        public finalizeListener(DefaultTableModel tableModel) {
+        public finalizeListener(DefaultTableModel tableModel, JSpinner spinner, JComboBox comboBox) {
             this.tableModel = tableModel;
+            this.spinner = spinner;
+            this.comboBox = comboBox;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() instanceof JButton){
                 if (tableModel.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(new JButton(), "Please do not forget to add product");
+                    JOptionPane.showMessageDialog(null, "Please do not forget to add product");
                 }
                 else{
                     waiter.createOrder(order);
@@ -171,11 +175,18 @@ public class OrderPanel extends JPanel {
 
                 }
             }
+            tableModel.setRowCount(0);
+            this.comboBox.setSelectedItem(comboBox.getItemAt(0));
+            order = new Order();
+            productAddPanel.setVisible(false);
+            currentOrder.setVisible(false);
+            finalPanel.setVisible(false);
+            mainPanel.setVisible(true);
         }
     }
 
 
-    
+
 }
 
 
