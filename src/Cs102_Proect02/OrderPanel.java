@@ -133,7 +133,7 @@ public class OrderPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if(productBox.getSelectedItem() instanceof Product){
                 Product product = (Product) productBox.getSelectedItem();
-                price.setText(Double.toString(product.getSellingPrice()));
+                price.setText( Double.toString(product.getSellingPrice()) + " TL");
             } else{
                 price.setText("0,00 TL");
                 spinner.setValue(1);
@@ -162,6 +162,7 @@ public class OrderPanel extends JPanel {
                     for (int i = 0; i < count; ++i) {
                         order.addProduct(product);
                     }
+                    spinner.setValue(1);
                 }else{
                     JOptionPane.showMessageDialog(null, "Please, select product");
                 }
