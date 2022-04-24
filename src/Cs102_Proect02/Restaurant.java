@@ -68,11 +68,12 @@ public class Restaurant {
         }
     }
 
-    public void listEmployees (){
+    //After creating GUI for Restaurant App this method become useless
+    /*public void listEmployees (){
         for (int i=0;i<employees.size();i++){
             System.out.println(employees.get(i).toString());
         }
-    }
+    }*/
 
     public Waiter assignWaiter() {
         int waiter =0;
@@ -110,8 +111,6 @@ public class Restaurant {
                 }
             }
         }
-        System.out.println("Employee expenses: " + empexpense);
-        System.out.println("Order expenses: " + ordexpense);
         return empexpense + ordexpense;
     }
 
@@ -132,6 +131,7 @@ public class Restaurant {
     public ArrayList<Product> getProducts() {
         return products;
     }
+    public ArrayList<Employee> getEmployees(){return employees;}
 
 }
 
